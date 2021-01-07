@@ -75,15 +75,6 @@ class Net(nn.Module):
     def forward(self, x):
         x = torch.tanh(self.fc1(x))
         return x
-
-class Net_random(nn.Module):
-    def __init__(self):
-        super(Net_random, self).__init__()
-        self.fc1 = nn.Linear(len(G.nodes), len(G.nodes), False)
-        
-    def forward(self, x):
-        x = torch.tanh(self.fc1(x))
-        return x
     
 def MaxCut_NN(G,x):
     adj = adjacency_matrix(G)
