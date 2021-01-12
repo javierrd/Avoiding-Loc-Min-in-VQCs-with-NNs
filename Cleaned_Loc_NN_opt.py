@@ -104,8 +104,6 @@ for i in tqdm(range(np.shape(gammas)[0])):
 
     # Initialize the optimizers
     opt = tf.keras.optimizers.Adam(learning_rate=0.1)
-    opt_QAOA2 = tf.keras.optimizers.Adam(learning_rate= 0.1)
-    #opt_NN = optim.SGD(net.parameters(), lr = 0.05)
 
     # Define number of NN steps
     NN_steps = 10#80
