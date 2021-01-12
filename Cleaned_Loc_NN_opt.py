@@ -3,7 +3,7 @@
 """
 Created on Mon Jan 11 16:26:19 2021
 
-@author: javierrd
+@author: javierrd, phuembeli
 """
 
 # ------------------------------ IMPORT PACKAGES -----------------------------
