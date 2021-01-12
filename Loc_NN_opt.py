@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Mon Jan 11 16:26:19 2021
-
 @author: javierrd
 """
 
@@ -69,7 +68,7 @@ class Net(nn.Module):
         super(Net, self).__init__()
         self.fc1 = nn.Linear(len(G.nodes), len(G.nodes), False)
         nn.init.eye_(self.fc1.weight)
-        
+
     def forward(self, x):
         x = torch.tanh(self.fc1(x))
         return x
@@ -176,7 +175,7 @@ for i in range(n_random):
     for j in range(p):
         gammas[i][j] = 7*random.random()
         betas[i][j] = 7*random.random()
-        
+
 # -------------------------------- OPTIMIZERS ---------------------------------
 def QAOA_opt(gamma, beta, opt, net):
     with tf.GradientTape() as tape:
@@ -190,7 +189,7 @@ def NN_opt1(net, gamma, beta, opt_NN):
     nodes, shots = np.shape(result)
     result = result.reshape(shots, nodes)
     input = result.double()
-    
+
     # NN and optimization
     x = net(input)
     E = MaxCut_NN(G,x)
@@ -210,39 +209,39 @@ for i in tqdm(range(np.shape(gammas)[0])):
     # Define gamma and beta
     gamma = tf.Variable([gammas[i][k] for k in range(p)], dtype=tf.float64)
     beta = tf.Variable([betas[i][k] for k in range(p)], dtype=tf.float64)
-    
+
     # Initialize the NN
     net = Net().double()
     net_QAOA = Net().double()
-    
+
     # Initialize the optimizers
     opt_QAOA = tf.keras.optimizers.Adam(learning_rate=0.1)
     opt_QAOA2 = tf.keras.optimizers.Adam(learning_rate= 0.1)
     opt_NN = optim.SGD(net.parameters(), lr = 0.05)
-    
+
     # Define number of NN steps
     NN_steps = 80
     QAOA2_steps = 200
     QAOA3_steps = 50
-    
+
     # First optimization step
     for k in range(50):
         gamma, beta, cost = QAOA_opt(gamma, beta, opt_QAOA, net_QAOA)
     E_initial[i] = cost
-    
+
     # NN optimization. Second optimization step
     for k in range(NN_steps):
         NN_opt1(net, gamma, beta, opt_NN)
-    
+
     # QAOA optimization in NN energy landscape. Third optimization step
     for k in range(QAOA2_steps):
         gamma, beta, cost = QAOA_opt(gamma, beta, opt_QAOA2, net)
-    
+
     # QAOA optimization step in original landscape. Fourth optimization step
     for k in range(QAOA3_steps):
         gamma, beta, cost = QAOA_opt(gamma, beta, opt_QAOA, net_QAOA)
     E_final[i] = cost
-    
+
 # ------------------------------ SAVING THE RESULTS --------------------------
 path_saving = "/home/jrivera/Documents/QAOA_FNN/Results/Candle/5-qubit-new/ADAM_01/NN_"+str(NN_steps)
 os.chdir(path_saving)
