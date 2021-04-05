@@ -1,5 +1,5 @@
-# Avoiding Local Minima in Variational Quantum Circuits with Artificial Neural Networks
-In this repository you can find the codes that have been used for obtaining the results shown in the article "Avoiding Local Minima in Variational Quantum Circuits with Artificial Neural Networks" by Javier Rivera-Dean, Patrick Huembeli, Antonio Acín and Joseph Bowles.
+# Avoiding Local Minima in Variational Quantum Circuits with Neural Networks
+In this repository you can find the codes that have been used for obtaining the results shown in the article "Avoiding Local Minima in Variational Quantum Circuits with Neural Networks" by Javier Rivera-Dean, Patrick Huembeli, Antonio Acín and Joseph Bowles.
 
 More information about the article can be found in: https://arxiv.org/abs/xxxx.xxxxx
 
